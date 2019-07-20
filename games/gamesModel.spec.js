@@ -132,6 +132,24 @@ describe('Sprint db tests ', () => {
         })
 
 
+        it('middleware should NOT allow duplicate game title to be added', async () => {
+            await db('games').insert(testInputs);
+
+            const dupGame = {
+                "title": "PacmanTEST",
+                "genre": "Arcade",
+                "releaseYear": 1980
+            }
+
+            req.body = dupGame;
+            const res = await req(server).post('/games').send(dupGame);
+            expect(res.status).toBe(405);
+            expect(res.body).toMatchObject({
+                message: " Game PacmanTEST already exits, not added"
+            });
+
+        })
+
     })
 
 })
