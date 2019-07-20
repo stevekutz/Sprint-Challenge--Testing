@@ -147,9 +147,48 @@ describe('Sprint db tests ', () => {
             expect(res.body).toMatchObject({
                 message: " Game PacmanTEST already exits, not added"
             });
+        })
+    })
 
+    describe('DELETE tests !!! ', () => {
+        it('should delete a game given an existing id', async () => {
+            await db('games').insert(testInputs);
+
+            let res = await req(server).get('/games');
+            expect(res.status).toBe(200);
+            expect(res.body).toEqual(testGames);
+            console.log('>>>>testGames  \n', testGames);
+       
+            expect(testGames).toHaveLength(3);    
+            const deleteResult = await Games.remove(3);
+            expect(deleteResult).toEqual(1);
+
+            res = await req(server).get('/games');
+            expect(res.status).toBe(200);
+           // expect(res.body).toEqual(testGames);
+            console.log('>>>> res.body  \n', res.body);
+            expect(res.body).toHaveLength(2);
+        })
+
+        it('should NOT be able delete a game given an non-existing id', async () => {
+            await db('games').insert(testInputs);
+
+            let res = await req(server).get('/games');
+            expect(res.status).toBe(200);
+            expect(res.body).toEqual(testGames);
+   //         console.log('>>>>testGames  \n', testGames);
+       
+            expect(testGames).toHaveLength(3);    
+            const deleteResult = await Games.remove(100);
+            expect(deleteResult).toEqual(0);
+
+            res = await req(server).get('/games');
+            expect(res.status).toBe(200);
+            console.log('>>>> res.body  \n', res.body);
+            expect(res.body).toHaveLength(3);
         })
 
     })
+
 
 })

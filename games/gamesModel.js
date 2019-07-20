@@ -3,7 +3,7 @@ const db = require('../data/dbConfig');
 module.exports = {
     insert,
 //    update,
-//    remove,
+    remove,
     getAll,
     findById,
     findByTitle,
@@ -14,6 +14,12 @@ async function insert(game) {
     const [id] = await db('games').insert(game);
 
     return findById(id);
+}
+
+function remove(id) {
+    return db('games')
+    .where({id})
+    .del();
 }
 
 async function getAll() {
