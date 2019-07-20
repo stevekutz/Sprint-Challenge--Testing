@@ -1,6 +1,6 @@
-const server = require('/server');
+const server = require('./server');
 
-const request =('supertest');
+const request = require('supertest');
 
 describe('server tests basic sanity check verification', () => {
     console.log('>>>>> Server TESTS started');
