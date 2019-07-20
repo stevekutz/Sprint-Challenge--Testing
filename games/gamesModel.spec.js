@@ -123,7 +123,7 @@ describe('Sprint db tests ', () => {
             };
 
             const res = await req(server).post('/games').send(insertedGame);
-            console.log('>>>>>>  res.status  ', res.status);
+            // console.log('>>>>>>  res.status  ', res.status);
 
             expect(res.status).toBe(422);
             expect(res.body).toMatchObject({

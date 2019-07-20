@@ -10,7 +10,7 @@ module.exports = {
 
 }
 
-async function insert() {
+async function insert(game) {
     const [id] = await db('games').insert(game);
 
     return findById(id);
@@ -20,7 +20,7 @@ async function getAll() {
     return db('games');
 }
 
-async function findById() {
+async function findById(id) {
     return db('games')
     .where({id})
     .first();
