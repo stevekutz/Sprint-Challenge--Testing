@@ -11,13 +11,17 @@ module.exports = {
 }
 
 async function insert() {
-    return null;
+    const [id] = await db('games').insert(game);
+
+    return findById(id);
 }
 
 async function getAll() {
-    return null;
+    return db('games');
 }
 
 async function findById() {
-    return null;
+    return db('games')
+    .where({id})
+    .first();
 }
