@@ -6,7 +6,7 @@ module.exports = {
 //    remove,
     getAll,
     findById,
-//    findByTitle,
+    findByTitle,
 
 }
 
@@ -25,3 +25,9 @@ async function findById(id) {
     .where({id})
     .first();
 }
+
+function findByTitle(title) {
+    return db('games')
+    .where({title})
+    .first();
+  }

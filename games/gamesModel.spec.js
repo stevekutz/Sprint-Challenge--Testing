@@ -115,7 +115,7 @@ describe('Sprint db tests ', () => {
 
         })
 
-        it('should return 422 & error message when getting ID that does not exist', async () => {
+        it('should return 422 & error message when title OR genre is blank', async () => {
             const insertedGame =  {
                 "title": "",
                 "genre": "Arcade",

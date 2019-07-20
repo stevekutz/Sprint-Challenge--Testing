@@ -49,7 +49,7 @@ server.get('/games/:id', async(req, res) => {
     }
   })
 
-  server.post('/games', async (req, res) => {
+  server.post('/games', noDupGames, async (req, res) => {
     try{
         if(req.body.title === '' || req.body.genre === '') {
             res.status(422).json({
@@ -67,5 +67,29 @@ server.get('/games/:id', async(req, res) => {
       });
     }
 })
+
+// custom middleware
+async function noDupGames(req, res, next) {
+    const {title} = req.body;
+
+    try {
+        const titleExists = await Games.findByTitle(title);
+        if(titleExists) {
+            res.status(405).json({
+                message: ` Game ${title} already exits, not added`
+            })
+        } else {
+            next();
+        } 
+    }   
+    catch (err) {
+        res.status(500).json({
+          message: `ERROR with the MW`
+        });
+      }
+}
+
+
+
 
 module.exports = server;
