@@ -2,6 +2,8 @@ const express = require('express');
 
 const server = express();
 
+const Games = require('../games/gamesModel');
+
 server.use(express.json());
 
 // sanity check
